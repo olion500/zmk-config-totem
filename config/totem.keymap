@@ -76,19 +76,19 @@ ZMK_CONDITIONAL_LAYER(device, 1 2, 3)
 
         nav_num {
             bindings = <
-                   &kp N1              &kp N2         &kp N3     &kp N4         &kp N5                &kp LA(BACKSPACE)  &kp BACKSPACE  &kp UP     &kp DELETE     &kp LA(DELETE)
-                   &hml LGUI N6        &hml LALT N7   &hml LCTL N8  &hml LSFT N9  &kp N0             &kp LA(LEFT_ARROW) &kp LEFT       &kp DOWN   &kp RIGHT      &kp LA(RIGHT)
-&kp LG(BACKSPACE)  &kp PERIOD          &kp PLUS       &kp MINUS  &kp STAR       &kp FSLH              &kp LG(UP_ARROW)   &kp LG(LEFT)   &kp ENTER  &kp LG(RIGHT)  &kp LG(DOWN_ARROW)  &to 0
-                                                      &trans     &trans         &trans                &kp EQUAL          &kp RIGHT_SHIFT  &kp PERCENT
+                   &kp N1              &kp N2              &kp N3              &kp N4              &kp N5               &trans           &trans            &trans            &trans            &trans
+                   &kp N6              &kp N7              &kp N8              &kp N9              &kp N0               &trans           &trans            &trans            &trans            &trans
+&trans             &trans              &trans              &trans              &trans              &trans               &trans           &trans            &trans            &trans            &trans            &trans
+                                                      &trans            &trans            &trans            &trans            &trans            &trans
             >;
         };
 
         sym_func {
             bindings = <
-           &kp ESC        &kp LEFT_BRACE        &kp RIGHT_BRACE        &none             &none             &kp F1   &kp F2           &kp F3   &kp F4   &kp F5
-           &kp TAB        &kp LBKT              &kp RBKT               &kp ENTER         &kp BSLH          &kp F6   &kp F7           &kp F8   &kp F9   &kp F10
-&kp GRAVE  &kp LESS_THAN  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp GREATER_THAN  &kp UNDERSCORE    &kp F11  &kp F12          &kp F13  &kp F14  &kp F15  &kp F16
-                                                &trans                 &trans            &trans            &none    &kp RIGHT_SHIFT  &none
+           &trans         &trans                &trans                 &trans            &trans            &trans    &trans            &trans    &trans   &trans
+           &trans         &trans                &trans                 &trans            &trans            &trans    &trans            &trans    &trans   &trans
+&trans      &trans        &trans                &trans                &trans             &trans            &trans    &trans            &trans    &trans   &trans  &trans
+                                                &trans                 &trans            &trans            &trans    &trans            &trans
             >;
         };
 
