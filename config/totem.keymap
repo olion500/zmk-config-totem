@@ -46,19 +46,6 @@ ZMK_HOLD_TAP(hmr,
     hold-trigger-on-release;
 )
 
-// Smart-num: tap for sticky layer, double-tap for toggle, hold for momentary
-ZMK_TAP_DANCE(num_dance,
-    tapping-term-ms = <200>;
-    bindings = <&sl 1>, <&to 1>;
-)
-
-ZMK_HOLD_TAP(smart_num,
-    flavor = "balanced";
-    tapping-term-ms = <200>;
-    quick-tap-ms = <175>;
-    bindings = <&mo>, <&num_dance>;
-)
-
 ZMK_CONDITIONAL_LAYER(device, 1 2, 3)
 
 / {
@@ -76,9 +63,9 @@ ZMK_CONDITIONAL_LAYER(device, 1 2, 3)
 
         nav_num {
             bindings = <
-                   &kp N1              &kp N2              &kp N3              &kp N4              &kp N5               &trans           &trans            &trans            &trans            &trans
-                   &kp N6              &kp N7              &kp N8              &kp N9              &kp N0               &trans           &trans            &trans            &trans            &trans
-&trans             &trans              &trans              &trans              &trans              &trans               &trans           &trans            &trans            &trans            &trans            &trans
+                   &trans              &kp N7              &kp N8              &kp N9              &trans               &trans           &trans            &trans            &trans            &trans
+                   &kp N0              &kp N4              &kp N5              &kp N6              &trans               &trans           &trans            &trans            &trans            &trans
+&trans             &trans              &kp N1              &kp N2              &kp N3              &trans               &trans           &trans            &trans            &trans            &trans            &trans
                                                       &trans            &trans            &trans            &trans            &trans            &trans
             >;
         };
