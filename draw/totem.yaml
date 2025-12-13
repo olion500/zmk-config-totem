@@ -33,12 +33,12 @@ layers:
     - .
     - /
     - ''''
-    - Esc
+    - '&repeat'
     - nav_num
     - Spc
     - ENTER
     - sym_func
-    - BACKSPACE
+    - '&repeat'
   nav_num:
     - {type: trans}
     - '7'
@@ -55,10 +55,10 @@ layers:
     - '5'
     - '6'
     - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
+    - ←
+    - ↓
+    - ↑
+    - →
     - {type: trans}
     - {type: trans}
     - {type: trans}

@@ -13,6 +13,7 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/hid_usage_pages.h>
 #include "zmk-helpers/helper.h"
 #include "totem_defs.dtsi"
 
@@ -24,6 +25,7 @@
 
 SIMPLE_MORPH(lpar_lt, SFT, &kp LPAR, &kp LT)
 SIMPLE_MORPH(rpar_gt, SFT, &kp RPAR, &kp GT)
+ZMK_KEY_REPEAT(repeat, usage-pages = <HID_USAGE_KEY HID_USAGE_CONSUMER>;)
 
 #include "combos.dtsi"
 
@@ -38,14 +40,14 @@ ZMK_CONDITIONAL_LAYER(device, 1 2, 3)
                &kp Q              &kp W              &kp E               &kp R              &kp T         &kp Y              &kp U              &kp I               &kp O              &kp P
                &hml LGUI A        &hml LALT S        &hml LCTL D         &hml LSFT F        &kp G         &kp H              &hmr RSFT J        &hmr RCTL K         &hmr RALT L        &hmr RGUI SEMI
 &kp RIGHT_ALT  &kp Z              &kp X              &kp C               &kp V              &kp B         &kp N              &kp M              &kp COMMA           &kp DOT            &kp FSLH         &kp APOS
-                                                     &kp ESC             &mo 1              &kp SPACE                        &kp ENTER          &mo 2               &kp BACKSPACE
+                                                     &repeat             &mo 1              &kp SPACE                        &kp ENTER          &mo 2               &repeat
             >;
         };
 
         nav_num {
             bindings = <
                    &trans              &kp N7              &kp N8              &kp N9              &trans               &trans           &trans            &trans            &trans            &trans
-                   &kp N0              &kp N4              &kp N5              &kp N6              &trans               &trans           &trans            &trans            &trans            &trans
+                   &kp N0              &kp N4              &kp N5              &kp N6              &trans               &kp LEFT         &kp DOWN          &kp UP            &kp RIGHT         &trans
 &trans             &trans              &kp N1              &kp N2              &kp N3              &trans               &trans           &trans            &trans            &trans            &trans            &trans
                                                       &trans            &trans            &trans            &trans            &trans            &trans
             >;
