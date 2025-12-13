@@ -91,6 +91,21 @@ init:
 list:
     @just _parse_targets all | sed 's/,*$//' | sort | column
 
+# show key position diagram and aliases
+keys:
+	#!/usr/bin/env bash
+	set -euo pipefail
+	cat <<-'EOF'
+		Key position layout (38-key):
+
+		    ╭─────────────────────┬─────────────────────╮
+		    │ LT4 LT3 LT2 LT1 LT0 │ RT0 RT1 RT2 RT3 RT4 │
+		 ╭──╯ LM4 LM3 LM2 LM1 LM0 │ RM0 RM1 RM2 RM3 RM4 ╰───╮
+		 │LB5 LB4 LB3 LB2 LB1 LB0 │ RB0 RB1 RB2 RB3 RB4 RB5 │
+		 ╰──────────╮ LH2 LH1 LH0 │ RH0 RH1 RH2 ╭───────────╯
+
+	EOF
+
 # update west
 update:
     west update --fetch-opt=--filter=blob:none
