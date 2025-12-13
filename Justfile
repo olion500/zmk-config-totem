@@ -62,7 +62,16 @@ draw:
     [[ -f "{{ draw }}/config.yaml" ]] || { echo "Missing draw/config.yaml"; exit 1; }
     keymap -c "{{ draw }}/config.yaml" parse -z "{{ keymap }}" --virtual-layers Combos >"{{ draw }}/totem.yaml"
     yq -Yi '.combos.[].l = ["Combos"]' "{{ draw }}/totem.yaml"
-    keymap -c "{{ draw }}/config.yaml" draw "{{ draw }}/totem.yaml" -k "ferris/sweep" >"{{ draw }}/totem.svg"
+    keymap -c "{{ draw }}/config.yaml" draw "{{ draw }}/totem.yaml" -d "{{ config / 'boards/shields/totem/totem-layouts.dtsi' }}" >"{{ draw }}/totem.svg"
+
+# open current repo in Windows Explorer (WSL)
+open:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if ! command -v explorer.exe >/dev/null 2>&1; then
+        echo "explorer.exe not found (WSL-only helper)"; exit 1
+    fi
+    explorer.exe "$(wslpath -w "{{ justfile_directory() }}")"
 
 # initialize west
 init:

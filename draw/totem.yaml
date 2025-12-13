@@ -165,15 +165,15 @@ combos:
   - p: [11, 12]
     k: Tab
     l: [Combos]
-  - p: [21, 23]
+  - p: [22, 24]
     k: Cut
     l: [Combos]
     a: bottom
     o: 0.15
-  - p: [21, 22]
+  - p: [22, 23]
     k: Copy
     l: [Combos]
-  - p: [22, 23]
+  - p: [23, 24]
     k: Paste
     l: [Combos]
   - p: [6, 7]
@@ -190,17 +190,17 @@ combos:
     k: '>'
     l: [Combos]
     hidden: true
-  - p: [26, 27]
+  - p: [27, 28]
     k: {t: '[', right: '{'}
     l: [Combos]
-  - p: [27, 28]
+  - p: [28, 29]
     k: {t: ']', right: '}'}
     l: [Combos]
-  - p: [26, 27]
+  - p: [27, 28]
     k: '{'
     l: [Combos]
     hidden: true
-  - p: [27, 28]
+  - p: [28, 29]
     k: '}'
     l: [Combos]
     hidden: true
@@ -216,16 +216,16 @@ combos:
   - p: [4, 14]
     k: '%'
     l: [Combos]
-  - p: [11, 21]
+  - p: [11, 22]
     k: '`'
     l: [Combos]
-  - p: [12, 22]
+  - p: [12, 23]
     k: \
     l: [Combos]
-  - p: [13, 23]
+  - p: [13, 24]
     k: '='
     l: [Combos]
-  - p: [14, 24]
+  - p: [14, 25]
     k: '~'
     l: [Combos]
   - p: [5, 15]
@@ -240,15 +240,15 @@ combos:
   - p: [8, 18]
     k: '&'
     l: [Combos]
-  - p: [15, 25]
+  - p: [15, 26]
     k: _
     l: [Combos]
-  - p: [16, 26]
+  - p: [16, 27]
     k: '-'
     l: [Combos]
-  - p: [17, 27]
+  - p: [17, 28]
     k: /
     l: [Combos]
-  - p: [18, 28]
+  - p: [18, 29]
     k: '|'
     l: [Combos]
