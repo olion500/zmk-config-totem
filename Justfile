@@ -75,9 +75,17 @@ open:
 
 # initialize west
 init:
-    west init -l config
-    west update --fetch-opt=--filter=blob:none
-    west zephyr-export
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [[ -d ".west" ]]; then
+        echo ".west already present, running west update/zephyr-export instead."
+        west update --fetch-opt=--filter=blob:none
+        west zephyr-export
+    else
+        west init -l config
+        west update --fetch-opt=--filter=blob:none
+        west zephyr-export
+    fi
 
 # list build targets
 list:
