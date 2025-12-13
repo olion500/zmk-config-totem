@@ -147,3 +147,22 @@ Use this method if you want full access to ZMK behaviors, advanced features, or 
 
 > Flashing the **left half** is usually enough.
 > Flash both halves if certain changes don’t take effect.
+
+---
+
+## Local Build Environment (Nix + direnv + just)
+
+This repo now ships the same Nix-based local build flow described in urob’s config. Quick start:
+
+**Prerequisites**
+* Nix (with flakes enabled)
+* `direnv` (with the shell hook enabled)
+* `just`
+
+**Setup**
+1) Allow the workspace: `direnv allow` (this will spin up the Nix shell; the first run takes a while).
+2) Initialize the Zephyr workspace and modules: `just init`
+
+**Build**
+* Build all firmware targets from `build.yaml`: `just build all`
+* Artifacts land in `firmware/` (e.g. `firmware/totem_left-xiao_ble.uf2` and `firmware/totem_right-xiao_ble.uf2`).
