@@ -54,10 +54,10 @@
 
 // Layer aliases
 #define DEF 0
-#define NAV 1
+#define NAV 1      // nav_num layer currently hosts both nav + numpad
+#define NUM NAV    // keep NUM alias in sync with the combined nav_num layer
 #define FN  2
-#define NUM 3
-#define SYS 4
+#define SYS 3
 #define MOUSE 5
 
 // Common tap timing

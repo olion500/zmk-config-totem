@@ -32,7 +32,7 @@ _build_single $board $shield $snippet $artifact *west_args:
     fi
 
 # build firmware for matching targets
-build expr='all' *west_args:
+build expr='all' *west_args: draw
     #!/usr/bin/env bash
     set -euo pipefail
     targets=$(just _parse_targets {{ expr }})

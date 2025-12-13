@@ -15,6 +15,16 @@
 #include <dt-bindings/zmk/keys.h>
 #include "zmk-helpers/helper.h"
 #include "totem_defs.dtsi"
+
+// Reuse urob's mod-morph helper so the paren combos can emit < and > when
+// shift is held, avoiding conflicting gt/lt combos on the same chord.
+#define SIMPLE_MORPH(NAME, MOD, BINDING1, BINDING2)                            \
+  ZMK_MOD_MORPH(NAME, mods = <(MOD_L##MOD | MOD_R##MOD)>;                      \
+                bindings = <BINDING1>, <BINDING2>;)
+
+SIMPLE_MORPH(lpar_lt, SFT, &kp LPAR, &kp LT)
+SIMPLE_MORPH(rpar_gt, SFT, &kp RPAR, &kp GT)
+
 #include "combos.dtsi"
 
 ZMK_CONDITIONAL_LAYER(device, 1 2, 3)

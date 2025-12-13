@@ -183,13 +183,11 @@ combos:
     k: Del
     l: [Combos]
   - p: [16, 17]
-    k: <
+    k: {t: (, s: <}
     l: [Combos]
-    hidden: true
   - p: [17, 18]
-    k: '>'
+    k: {t: ), s: '>'}
     l: [Combos]
-    hidden: true
   - p: [27, 28]
     k: {t: '[', right: '{'}
     l: [Combos]
