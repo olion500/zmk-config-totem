@@ -1,0 +1,55 @@
+{
+  "skill_name": "zmk-expert",
+  "evals": [
+    {
+      "id": 1,
+      "name": "add_fkeys_to_sym",
+      "prompt": "I want to add F1-F12 to my sym_func layer in /home/olion/zmk-config-totem/config/totem.keymap. Right now that layer is all &trans placeholders. Use a numpad-style layout on the LEFT hand: F1-F3 on bottom row (positions LB3 LB2 LB1, which are the three middle keys of the bottom row), F4-F6 on home row middle (LM3 LM2 LM1), F7-F9 on top row (LT3 LT2 LT1). Put F10/F11/F12 somewhere reasonable on the same hand. Leave the right hand of sym_func with &trans. Preserve the existing alignment style in the file. Show me the updated sym_func layer block.",
+      "expected_output": "Updated totem.keymap with F1-F12 placed on the left hand of sym_func layer following numpad style. Right hand remains &trans. Original file structure and alignment preserved.",
+      "files": [],
+      "expectations": [
+        "F7, F8, F9 are placed on top row positions LT3, LT2, LT1 (positions 1, 2, 3 in declaration order)",
+        "F4, F5, F6 are placed on home row middle positions LM3, LM2, LM1",
+        "F1, F2, F3 are placed on bottom row middle positions LB3, LB2, LB1",
+        "F10, F11, F12 are placed somewhere on the left hand of the sym_func layer",
+        "Right hand of sym_func layer remains &trans (or &none in obvious not-yet-mapped positions)",
+        "The output preserves the rough column alignment of the existing file",
+        "The base, nav_num, and device layers are NOT modified",
+        "The behaviors block, includes, and combos.dtsi are NOT modified"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "smart_shift_thumb",
+      "prompt": "I want a smart-shift behavior on my right thumb (currently &repeat in totem.keymap). New behavior: tap once = sticky-shift (one-shot shift for the next key), tap twice = caps-word (auto-shift letters until I hit a non-letter), hold = regular shift held down. Use mod-morph for the double-tap detection (NOT tap-dance, which would add latency to the single-tap path). Use zmk-helpers macros — this repo includes helper.h. Show me the new behavior definition (where to add it) and the updated base layer binding. Explain briefly why mod-morph beats tap-dance here.",
+      "expected_output": "A new hold-tap + mod-morph behavior pair (e.g., 'smart_shift' wrapping a tap into a mod-morph that escalates to caps-word when shift is already held). Replacement of the right-thumb &repeat with the new behavior. Brief explanation of the no-delay trick.",
+      "files": [],
+      "expectations": [
+        "Defines a new hold-tap behavior (using ZMK_HOLD_TAP or raw devicetree) whose hold action is shift (LSHFT or RSHFT) and tap action chains into a mod-morph",
+        "Defines a mod-morph whose default binding is &sk LSHFT (sticky shift) and whose shifted binding is &caps_word",
+        "The mod-morph's mods include MOD_LSFT (the morph triggers when shift is already held — this is the 'double tap' detection trick)",
+        "Updates the base layer binding to replace the right-thumb &repeat with the new behavior",
+        "Explains that mod-morph avoids the tap-dance single-tap latency by using sticky-shift as a transient flag",
+        "Uses zmk-helpers macro syntax (ZMK_HOLD_TAP, ZMK_MOD_MORPH) rather than raw devicetree since the repo uses helper.h",
+        "Does not introduce new west.yml module dependencies (this can all be done with stock ZMK + zmk-helpers)"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "fix_build_errors",
+      "prompt": "My GitHub Actions ZMK build is failing for my totem config. Here's the relevant error output:\n\n```\nerror: totem.keymap.pre.tmp:147.28-147.34:\n  Reference to non-existent node or label \"hml_sk\"\n\nkeymap.dts.pre.tmp:163: error: 'BCKSPC' undeclared (first use in this function)\n\nerror: keymap.dts.pre.tmp:189.5: 'flavour' is not in the enumeration: ('tap-preferred', 'hold-preferred', 'balanced', 'tap-unless-interrupted')\n```\n\nHelp me diagnose each error and tell me exactly how to fix each one. For each error: explain what it means in plain language, what likely caused it, and the specific fix.",
+      "expected_output": "Three diagnostics, each with: explanation of the error meaning, the likely cause, and the specific fix. The user should be able to apply each fix without further research.",
+      "files": [],
+      "expectations": [
+        "Error 1 (hml_sk reference) is correctly diagnosed as a missing or misspelled behavior definition — the user used &hml_sk in a binding but didn't define hml_sk: ... anywhere, or included the file defining it AFTER its use",
+        "Error 1 fix suggests either defining the behavior or correcting the spelling (e.g., to &hml)",
+        "Error 2 (BCKSPC undeclared) is correctly diagnosed as a keycode typo — BCKSPC is not a valid ZMK keycode",
+        "Error 2 fix specifies the correct spelling: BSPC (or BACKSPACE)",
+        "Error 3 (flavour) is correctly diagnosed as British vs American spelling — ZMK uses 'flavor', not 'flavour'",
+        "Error 3 fix specifies changing flavour to flavor",
+        "Explanations are clear enough that a non-expert can apply the fix",
+        "Does not invent additional errors that weren't in the output"
+      ]
+    }
+  ]
+}
