@@ -203,6 +203,9 @@ combos:
   - p: [14, 25]
     k: '|'
     l: [Combos]
+  - p: [4, 14]
+    k: '~'
+    l: [Combos]
   - p: [8, 9]
     k: RIGHT ALT
     l: [Combos]
@@ -211,9 +214,6 @@ combos:
     l: [Combos]
   - p: [6, 7]
     k: '*'
-    l: [Combos]
-  - p: [6, 7]
-    k: '~'
     l: [Combos]
   - p: [26, 27]
     k: /
