@@ -1,0 +1,34 @@
+# prek / pre-commit config — fast hooks only.
+# Install: `prek install`
+# Run once across the repo: `prek run --all-files`
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: '\.svg$'
+      - id: end-of-file-fixer
+        exclude: '\.svg$'
+      - id: check-yaml
+      - id: check-merge-conflict
+      - id: mixed-line-ending
+        args: [--fix=lf]
+
+  - repo: local
+    hooks:
+      # Regenerate draw/totem.svg whenever the keymap or draw config changes.
+      # If the SVG changes, the commit fails — re-stage and commit again.
+      - id: draw
+        name: regenerate keymap SVG (just draw)
+        entry: just draw
+        language: system
+        files: ^(config/(totem\.keymap|combos\.dtsi|totem_defs\.dtsi)|draw/config\.yaml)$
+        pass_filenames: false
+
+      # Catch the common ZMK typos before CI does.
+      - id: zmk-typos
+        name: catch common ZMK keycode/property typos
+        entry: bash -c 'if grep -nE "\b(BCKSPC|BCKSP|BKSP|flavour|colour|behaviour)\b" "$@"; then echo "Found ZMK typo above. See .claude/skills/zmk-expert/references/keycodes.md"; exit 1; fi' --
+        language: system
+        files: \.(keymap|dtsi|overlay|conf)$
