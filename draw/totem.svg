@@ -135,8 +135,8 @@ text.trans { fill: #7e8184; }
 path.combo { stroke: #7f7f7f; }
 
 }</style>
-<g transform="translate(30, 0)" class="layer-base">
-<text x="0" y="28" class="label" id="base">base</text>
+<g transform="translate(30, 0)" class="layer-Base">
+<text x="0" y="28" class="label" id="Base">Base</text>
 <g transform="translate(0, 56)">
 <g transform="translate(73, 113) rotate(-10.0)" class="key keypos-0">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -282,8 +282,8 @@ path.combo { stroke: #7f7f7f; }
 </g>
 <g transform="translate(303, 245) rotate(15.0)" class="key keypos-33">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<a href="#nav_num">
-<text x="0" y="0" class="key tap layer-activator">nav_num</text>
+<a href="#NavNum">
+<text x="0" y="0" class="key tap layer-activator">Nav/Num</text>
 </a></g>
 <g transform="translate(360, 270) rotate(30.0)" class="key keypos-34">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -295,8 +295,8 @@ path.combo { stroke: #7f7f7f; }
 </g>
 <g transform="translate(594, 245) rotate(-15.0)" class="key keypos-36">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<a href="#sym_func">
-<text x="0" y="0" class="key tap layer-activator"><tspan style="font-size: 88%">sym_func</tspan></text>
+<a href="#SymFn">
+<text x="0" y="0" class="key tap layer-activator">Sym/Fn</text>
 </a></g>
 <g transform="translate(656, 236)" class="key keypos-37">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -304,8 +304,8 @@ path.combo { stroke: #7f7f7f; }
 </g>
 </g>
 </g>
-<g transform="translate(30, 365)" class="layer-nav_num">
-<text x="0" y="28" class="label" id="nav_num">nav_num</text>
+<g transform="translate(30, 365)" class="layer-Nav/Num">
+<text x="0" y="28" class="label" id="NavNum">Nav/Num</text>
 <g transform="translate(0, 56)">
 <g transform="translate(73, 113) rotate(-10.0)" class="key trans keypos-0">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
@@ -437,8 +437,8 @@ path.combo { stroke: #7f7f7f; }
 </g>
 </g>
 </g>
-<g transform="translate(30, 729)" class="layer-sym_func">
-<text x="0" y="28" class="label" id="sym_func">sym_func</text>
+<g transform="translate(30, 729)" class="layer-Sym/Fn">
+<text x="0" y="28" class="label" id="SymFn">Sym/Fn</text>
 <g transform="translate(0, 56)">
 <g transform="translate(73, 113) rotate(-10.0)" class="key trans keypos-0">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
@@ -556,8 +556,8 @@ path.combo { stroke: #7f7f7f; }
 </g>
 </g>
 </g>
-<g transform="translate(30, 1094)" class="layer-device">
-<text x="0" y="28" class="label" id="device">device</text>
+<g transform="translate(30, 1094)" class="layer-Device">
+<text x="0" y="28" class="label" id="Device">Device</text>
 <g transform="translate(0, 56)">
 <g transform="translate(73, 113) rotate(-10.0)" class="key keypos-0">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>

@@ -1,0 +1,79 @@
+{
+  "skill_name": "dongle-expert",
+  "evals": [
+    {
+      "id": 1,
+      "name": "add_prospector_to_totem_west_yml",
+      "prompt": "I want to add a Prospector dongle to my TOTEM ZMK config at /home/olion/zmk-config-totem. Show me the updated config/west.yml that adds the prospector-zmk-module from carrefinho. The existing west.yml already has zmk-helpers from urob. Preserve that. Tell me which revision to use for prospector-zmk-module given that my zmk project pins to revision 'main' (current development).",
+      "expected_output": "Updated west.yml with the carrefinho remote and prospector-zmk-module project added alongside the existing zmkfirmware + urob entries. A note about branch choice (main branch tracks Zephyr 3.5 / ZMK v0.3; for newer ZMK on main, use the newer-Zephyr branch documented in the module README).",
+      "files": [],
+      "expectations": [
+        "Adds a `carrefinho` remote with url-base https://github.com/carrefinho",
+        "Adds a `prospector-zmk-module` project entry referencing the carrefinho remote",
+        "Preserves the existing `zmkfirmware` remote and the `urob` remote",
+        "Preserves the existing `zmk` and `zmk-helpers` projects unchanged",
+        "Calls out that the module's `main` branch targets ZMK v0.3 / Zephyr 3.5 and that the user's `main` ZMK revision requires the `feat/new-status-screens` branch (Zephyr 4.1)",
+        "If proposing a revision value, picks `feat/new-status-screens` (not `main`) for ZMK main / Zephyr 4.1 users",
+        "Does not break the existing `self: path: config` block",
+        "Does not invent module paths or revisions that aren't supported (e.g., does not pin to a random commit SHA)"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "create_totem_dongle_shield",
+      "prompt": "Create the totem_dongle shield for my ZMK config so it can host a Prospector dongle. The existing shield lives at /home/olion/zmk-config-totem/config/boards/shields/totem/ with totem.dtsi (defining default_transform with 10 columns / 4 rows and the RC() map), totem-layouts.dtsi (defining physical_layout0), Kconfig.shield (SHIELD_TOTEM_LEFT + SHIELD_TOTEM_RIGHT), and Kconfig.defconfig (sets central role for SHIELD_TOTEM_LEFT). Generate the three files I need: the updated Kconfig.shield (add the new dongle symbol), the updated Kconfig.defconfig (add the dongle's role + BT config), and a new totem_dongle.overlay file with mock_kscan + matrix transform copied from totem.dtsi.",
+      "expected_output": "Three file contents: updated Kconfig.shield, updated Kconfig.defconfig, and a new totem_dongle.overlay. The overlay must include the mock_kscan node, the default_transform copied from totem.dtsi (10 cols, 4 rows, same RC() map), the physical_layout binding via &physical_layout0, and the chosen { zmk,kscan = &mock_kscan; zmk,physical-layout = &physical_layout0; } block.",
+      "files": [],
+      "expectations": [
+        "Kconfig.shield adds `config SHIELD_TOTEM_DONGLE` with `def_bool $(shields_list_contains,totem_dongle)`",
+        "Kconfig.shield preserves the existing SHIELD_TOTEM_LEFT and SHIELD_TOTEM_RIGHT entries",
+        "Kconfig.defconfig adds an `if SHIELD_TOTEM_DONGLE ... endif` block",
+        "The dongle block sets `ZMK_SPLIT_ROLE_CENTRAL default y`",
+        "The dongle block sets `ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS default 1` (TOTEM is a 2-half split, so one peripheral)",
+        "The dongle block sets `BT_MAX_CONN` and `BT_MAX_PAIRED` to the same value, at least 6",
+        "Kconfig.defconfig preserves the existing SHIELD_TOTEM_LEFT central-role block (does NOT delete or disable it)",
+        "totem_dongle.overlay defines a `mock_kscan` node with `compatible = \"zmk,kscan-mock\"` (note the hyphen, not underscore)",
+        "totem_dongle.overlay includes the matrix transform copied from totem.dtsi — 10 columns, 4 rows, same RC() map structure",
+        "totem_dongle.overlay sets `chosen { zmk,kscan = &mock_kscan; zmk,physical-layout = &physical_layout0; }`",
+        "totem_dongle.overlay does NOT include totem.dtsi directly (which would also pull in the GPIO kscan and conflict with mock_kscan)",
+        "totem_dongle.overlay DOES include the layouts file or otherwise binds &physical_layout0 to &default_transform"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "update_build_yaml_for_dongle",
+      "prompt": "Update my build.yaml at /home/olion/zmk-config-totem/build.yaml so that the new totem_dongle shield builds (with prospector_adapter from the prospector-zmk-module), settings_reset is available for clearing pairings, and the existing totem_left build switches from central to peripheral. The existing build.yaml currently has totem_left (with studio-rpc-usb-uart snippet) and totem_right entries, both on board: xiao_ble. The dongle should use seeeduino_xiao_ble (XIAO nRF52840). I'd like ZMK Studio to be reachable through the dongle, not the left half anymore. Show the full updated build.yaml.",
+      "expected_output": "An updated build.yaml that: (1) adds a totem_dongle row combining totem_dongle and prospector_adapter shields on board seeeduino_xiao_ble with the studio-rpc-usb-uart snippet, (2) adds a settings_reset row on seeeduino_xiao_ble, (3) modifies the existing totem_left row to remove the studio snippet and add cmake-args demoting central to n, (4) leaves totem_right unchanged.",
+      "files": [],
+      "expectations": [
+        "Adds a new build row with `board: seeeduino_xiao_ble` and `shield: totem_dongle prospector_adapter` (both shields in the same string)",
+        "The dongle row has `snippet: studio-rpc-usb-uart` so ZMK Studio reaches the central via the dongle's USB",
+        "Adds a `settings_reset` row on `board: seeeduino_xiao_ble`",
+        "Existing `totem_left` row no longer has the `studio-rpc-usb-uart` snippet (moved to the dongle)",
+        "Existing `totem_left` row has `cmake-args: -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n` so the half builds as a peripheral",
+        "Existing `totem_right` row is unchanged",
+        "The board for the halves stays `xiao_ble` (matches their original build); only the dongle uses `seeeduino_xiao_ble`",
+        "The output is a syntactically valid build.yaml (YAML list under `include:`)",
+        "If the user is on ZMK main / Zephyr 4.1 (not v0.3), the dongle board target is `xiao_ble/nrf52840/zmk` — the full HW V2 form, NOT the shorthand `xiao_ble//zmk` from the module README (which the Zephyr 4.1 board loader rejects locally)",
+        "For ZMK main / Zephyr 4.1, the peripheral halves (totem_left, totem_right) MUST also use `board: xiao_ble/nrf52840/zmk`, NOT plain `xiao_ble`. The plain board does not activate CONFIG_ZMK_BLE, so peripherals would build without a BLE stack and never advertise."
+      ]
+    },
+    {
+      "id": 4,
+      "name": "debug_layer_indicator_shows_numbers",
+      "prompt": "My Prospector dongle for my TOTEM is working — display lights up, peripheral battery shows, but the layer indicator always shows a number (0, 1, 2, 3) instead of a name. I want it to show 'Base', 'Nav', 'Sym', 'Device'. Where do I add the layer names and which file is the source of truth? The active keymap is at /home/olion/zmk-config-totem/config/totem.keymap. Also tell me — once I add display-name properties, does the dongle pick that up automatically on the next flash, or do I need to flash both halves too?",
+      "expected_output": "Diagnosis: Prospector's layer widget reads each layer's `display-name` property; layers without it fall back to the index. Fix: add `display-name = \"Base\";` (etc.) to each layer node in config/totem.keymap. Plus: only the dongle needs reflashing — the central is what reports the active layer; peripherals don't participate in display state.",
+      "files": [],
+      "expectations": [
+        "Identifies that the cause is missing `display-name` properties on each layer node",
+        "Shows the exact syntax: `display-name = \"Base\";` inside each layer block in the keymap",
+        "Suggests adding display-name to all four layers (base, nav_num, sym_func, device) with reasonable short labels",
+        "Recommends names short enough to render on the round LCD (≤ ~8 characters)",
+        "Mentions `CONFIG_PROSPECTOR_LAYER_ROLLER_ALL_CAPS` as an option if the user wants forced uppercase",
+        "Correctly explains that only the dongle needs reflashing for the display name change to take effect (the central is what reports active layer state)",
+        "Does NOT recommend flashing the peripherals for this fix",
+        "Does NOT recommend modifying the prospector-zmk-module source"
+      ]
+    }
+  ]
+}

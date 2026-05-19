@@ -8,22 +8,32 @@ draw := justfile_directory() / 'draw'
 keymap := config / 'totem.keymap'
 
 # parse build.yaml and filter targets by expression
+# Uses ASCII Unit Separator (\x1F) as the field separator so:
+#   - cmake-args (which may contain spaces, =, etc.) survives intact
+#   - empty intermediate fields (e.g. a row without snippet) are preserved
+#     (bash `read` collapses consecutive whitespace separators, so TAB is unsafe)
+# Field order: board, shield, snippet, artifact-name, cmake-args
 _parse_targets $expr:
     #!/usr/bin/env bash
-    attrs="[.board, .shield, .snippet, .\"artifact-name\"]"
-    filter="(($attrs | map(. // [.]) | combinations), ((.include // {})[] | $attrs)) | join(\",\")"
-    echo "$(yq -r "$filter" build.yaml | grep -v "^," | grep -i "${expr/#all/.*}")"
+    attrs="[.board, .shield, .snippet, .\"artifact-name\", .\"cmake-args\"]"
+    filter="(($attrs | map(. // [.]) | combinations), ((.include // {})[] | $attrs)) | join(\"\")"
+    echo "$(yq -r "$filter" build.yaml | grep -vP '^\x1f' | grep -i "${expr/#all/.*}")"
 
 # build firmware for single board & shield combination
-_build_single $board $shield $snippet $artifact *west_args:
+_build_single $board $shield $snippet $artifact $cmake_args *west_args:
     #!/usr/bin/env bash
     set -euo pipefail
-    artifact="${artifact:-${shield:+${shield// /+}-}${board}}"
+    artifact="${artifact:-${shield:+${shield// /+}-}${board//\//_}}"
     build_dir="{{ build / '$artifact' }}"
 
     echo "Building firmware for $artifact..."
+    # BOARD_ROOT points at zmk/app so ZMK's board.yml extensions (e.g. the `zmk`
+    # variant on xiao_ble used by Prospector dongle builds) are discovered.
     west build -s zmk/app -d "$build_dir" -b $board {{ west_args }} ${snippet:+-S "$snippet"} -- \
-        -DZMK_CONFIG="{{ config }}" ${shield:+-DSHIELD="$shield"}
+        -DZMK_CONFIG="{{ config }}" \
+        -DBOARD_ROOT="{{ justfile_directory() }}/zmk/app" \
+        ${shield:+-DSHIELD="$shield"} \
+        ${cmake_args}
 
     if [[ -f "$build_dir/zephyr/zmk.uf2" ]]; then
         mkdir -p "{{ out }}" && cp "$build_dir/zephyr/zmk.uf2" "{{ out }}/$artifact.uf2"
@@ -38,8 +48,8 @@ build expr='all' *west_args: draw
     targets=$(just _parse_targets {{ expr }})
 
     [[ -z $targets ]] && echo "No matching targets found. Aborting..." >&2 && exit 1
-    echo "$targets" | while IFS=, read -r board shield snippet artifact; do
-        just _build_single "$board" "$shield" "$snippet" "$artifact" {{ west_args }}
+    echo "$targets" | while IFS=$'\x1f' read -r board shield snippet artifact cmake_args; do
+        just _build_single "$board" "$shield" "$snippet" "$artifact" "$cmake_args" {{ west_args }}
     done
 
 # clear build cache and artifacts
@@ -69,7 +79,10 @@ draw:
 flash side='left':
     #!/usr/bin/env bash
     set -euo pipefail
-    artifact="totem_{{ side }}-xiao_ble"
+    # Artifact name follows build.yaml board target: xiao_ble/nrf52840/zmk → xiao_ble_nrf52840_zmk
+    # (The plain `xiao_ble` board does NOT activate CONFIG_ZMK_BLE; ZMK split halves
+    # must use the //zmk variant or BLE advertising won't work.)
+    artifact="totem_{{ side }}-xiao_ble_nrf52840_zmk"
     uf2="{{ out }}/${artifact}.uf2"
     [[ -f "$uf2" ]] || { echo "Missing $uf2 — run 'just build' first." >&2; exit 1; }
 
@@ -144,7 +157,7 @@ doctor:
     else warn "ZMK Studio not enabled (CONFIG_ZMK_STUDIO=y missing)"; fi
 
     sec "Build artifacts"
-    for art in totem_left-xiao_ble totem_right-xiao_ble; do
+    for art in totem_left-xiao_ble_nrf52840_zmk totem_right-xiao_ble_nrf52840_zmk; do
         f="firmware/${art}.uf2"
         if [[ -f "$f" ]]; then
             age=$(( $(date +%s) - $(stat -c %Y "$f") ))

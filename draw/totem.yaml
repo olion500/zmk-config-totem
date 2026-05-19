@@ -1,6 +1,6 @@
 layout: {zmk_keyboard: totem}
 layers:
-  base:
+  Base:
     - Q
     - W
     - E
@@ -34,12 +34,12 @@ layers:
     - /
     - ''''
     - '&repeat'
-    - nav_num
+    - Nav/Num
     - Spc
     - ENTER
-    - sym_func
+    - Sym/Fn
     - '&repeat'
-  nav_num:
+  Nav/Num:
     - {type: trans}
     - '7'
     - '8'
@@ -78,7 +78,7 @@ layers:
     - {type: trans}
     - {type: trans}
     - {type: trans}
-  sym_func:
+  Sym/Fn:
     - {type: trans}
     - {type: trans}
     - {type: trans}
@@ -117,7 +117,7 @@ layers:
     - {type: trans}
     - {type: held}
     - {type: trans}
-  device:
+  Device:
     - ''
     - BRIGHTNESS DEC
     - BRIGHTNESS INC

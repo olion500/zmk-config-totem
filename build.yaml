@@ -19,9 +19,30 @@
 #
 ---
 include:
-  - board: xiao_ble
-    shield: totem_left
+  # Prospector dongle (XIAO nRF52840 + Waveshare 1.69" LCD).
+  # Board target = xiao_ble: ZMK adds a 'zmk' variant on the
+  # standard Zephyr xiao_ble board (see zmk/app/boards/seeed/xiao_ble/board.yml).
+  # The module README writes this as `xiao_ble//zmk` but Zephyr 4.1 wants the
+  # full <board>/<soc>/<variant> form locally.
+  # ZMK Studio reaches the central via the dongle's USB-C from here on.
+  - board: xiao_ble/nrf52840/zmk
+    shield: totem_dongle prospector_adapter
     snippet: studio-rpc-usb-uart
-  - board: xiao_ble
+    artifact-name: totem_dongle
+
+  # settings_reset firmware — flash this to ALL THREE boards before first pair.
+  - board: xiao_ble/nrf52840/zmk
+    shield: settings_reset
+    artifact-name: settings_reset
+
+  # Left half — now a peripheral. cmake-args overrides the central=y default
+  # from boards/shields/totem/Kconfig.defconfig for this build only.
+  # Board target must use the //zmk variant (xiao_ble/nrf52840/zmk): the plain
+  # `xiao_ble` board does NOT activate CONFIG_ZMK_BLE, so the peripheral half
+  # would build without a BLE stack and never advertise to the dongle.
+  - board: xiao_ble/nrf52840/zmk
+    shield: totem_left
+    cmake-args: -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
+
+  - board: xiao_ble/nrf52840/zmk
     shield: totem_right
-# there is no settingsreset (needed) for the XIAO

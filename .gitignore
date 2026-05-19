@@ -7,3 +7,9 @@ zephyr
 zmk
 draw/base.yaml
 .DS_Store
+
+# Personal task tracking (per CLAUDE.md)
+tasks.md
+
+# west-managed external module (cloned at build time)
+prospector-zmk-module
