@@ -34,7 +34,7 @@ layers:
     - /
     - ''''
     - '&repeat'
-    - Nav/Num
+    - {t: Numword, h: Nav/Num, s: Sticky Num}
     - Spc
     - ENTER
     - Sym/Fn
@@ -80,35 +80,35 @@ layers:
     - {type: trans}
   Sym/Fn:
     - {type: trans}
+    - '&'
+    - '*'
+    - (
+    - {type: trans}
+    - {type: trans}
+    - '-'
+    - '='
+    - +
+    - {type: trans}
+    - )
+    - $
+    - '%'
+    - ^
+    - {type: trans}
+    - {type: trans}
+    - _
+    - '~'
+    - '`'
     - {type: trans}
     - {type: trans}
     - {type: trans}
+    - '!'
+    - '@'
+    - '#'
     - {type: trans}
     - {type: trans}
     - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
-    - {type: trans}
+    - '|'
+    - \
     - {type: trans}
     - {type: trans}
     - {type: trans}
@@ -168,12 +168,6 @@ combos:
   - p: [11, 12]
     k: Tab
     l: [Combos]
-  - p: [12, 13]
-    k: '`'
-    l: [Combos]
-  - p: [13, 14]
-    k: '!'
-    l: [Combos]
   - p: [24, 25]
     k: \
     l: [Combos]
@@ -188,41 +182,14 @@ combos:
   - p: [23, 24]
     k: Paste
     l: [Combos]
-  - p: [2, 3]
-    k: '@'
-    l: [Combos]
-  - p: [3, 4]
-    k: '#'
-    l: [Combos]
-  - p: [3, 13]
-    k: $
-    l: [Combos]
-  - p: [13, 24]
-    k: '='
-    l: [Combos]
-  - p: [14, 25]
-    k: '|'
-    l: [Combos]
-  - p: [4, 14]
-    k: '~'
-    l: [Combos]
   - p: [8, 9]
     k: RIGHT ALT
     l: [Combos]
   - p: [7, 8]
     k: Bspc
     l: [Combos]
-  - p: [6, 7]
-    k: '*'
-    l: [Combos]
   - p: [26, 27]
     k: /
-    l: [Combos]
-  - p: [15, 16]
-    k: '%'
-    l: [Combos]
-  - p: [5, 6]
-    k: '&'
     l: [Combos]
   - p: [16, 17]
     k: {t: (, s: <}
@@ -244,15 +211,3 @@ combos:
     k: '}'
     l: [Combos]
     hidden: true
-  - p: [5, 15]
-    k: ^
-    l: [Combos]
-  - p: [6, 16]
-    k: +
-    l: [Combos]
-  - p: [15, 26]
-    k: _
-    l: [Combos]
-  - p: [16, 27]
-    k: '-'
-    l: [Combos]

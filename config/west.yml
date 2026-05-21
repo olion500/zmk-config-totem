@@ -20,6 +20,9 @@ manifest:
       remote: urob
       revision: main
       path: modules/zmk/helpers
+    - name: zmk-auto-layer
+      remote: urob
+      revision: main
     - name: prospector-zmk-module
       remote: carrefinho
       revision: feat/new-status-screens

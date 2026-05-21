@@ -53,12 +53,10 @@
 #define RH2 37
 
 // Layer aliases
-#define DEF 0
-#define NAV 1
-#define FN  2
-#define NUM 3
-#define SYS 4
-#define MOUSE 5
+#define DEF 0   // base
+#define NAV 1   // nav_num
+#define SYM 2   // sym_func
+#define DEV 3   // device (conditional layer activated by NAV+SYM)
 
 // Common tap timing
 #define QUICK_TAP_MS 175

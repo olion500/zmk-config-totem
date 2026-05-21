@@ -16,55 +16,33 @@
 /* left hand - Horizontal combos */
 // `lalt` / `ralt` both emit RIGHT_ALT (Korean 한/영 IME toggle). Names mark
 // which hand triggers the combo, not which Alt keycode is produced.
-ZMK_COMBO(lalt,  &kp RIGHT_ALT,LT3 LT4,     DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(esc,   &kp ESC,      LT3 LT2,     DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(lalt,  &kp RIGHT_ALT,LT3 LT4,     DEF NAV SYM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(esc,   &kp ESC,      LT3 LT2,     DEF NAV SYM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
-// Combos overlapping HRMs are set up as hold-taps themselves to allow for instantaneous
-// chording of mods. Custom hold-tap instances can be bootstrapped on the go using the
-// 8-argument version of ZMK_COMBO defined in base.keymap.
-ZMK_COMBO(tab,   &hml LS(LALT)TAB, LM3 LM2, DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// Tab overlaps HRM positions (LM3/LM2). Wrapped as hml so mod chords on the
+// same fingers (Ctrl+Alt etc.) still work.
+ZMK_COMBO(tab,   &hml LS(LALT)TAB, LM3 LM2, DEF NAV SYM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
-ZMK_COMBO(grave, &kp GRAVE,    LM2 LM1,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(excl,  &kp EXCL,     LM1 LM0,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(bslh,  &kp BSLH,     LB1 LB0,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(bslh,  &kp BSLH,     LB1 LB0,     DEF NAV SYM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
 
-ZMK_COMBO(cut,   &kp LC(X),    LB3 LB1,     DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(copy,  &kp LC(INS),  LB3 LB2,     DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(paste, &kp LS(INS),  LB2 LB1,     DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-
-/* left hand - Vertical combos */
-ZMK_COMBO(at,    &kp AT,       LT2 LT1,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(hash,  &kp HASH,     LT1 LT0,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(dllr,  &kp DLLR,     LT1 LM1,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-
-ZMK_COMBO(equal, &kp EQUAL,    LM1 LB1,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(pipe,  &kp PIPE,     LM0 LB0,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(tilde, &kp TILDE,    LT0 LM0,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-
+ZMK_COMBO(cut,   &kp LC(X),    LB3 LB1,     DEF NAV SYM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(copy,  &kp LC(INS),  LB3 LB2,     DEF NAV SYM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(paste, &kp LS(INS),  LB2 LB1,     DEF NAV SYM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
 /* right hand - Horizontal combos */
-ZMK_COMBO(ralt,  &kp RIGHT_ALT,RT3 RT4,     DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(bspc,  &kp BSPC,     RT2 RT3,     DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(star,  &kp STAR,     RT1 RT2,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(fslh,  &kp FSLH,     RB0 RB1,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(prcnt, &kp PRCNT,    RM0 RM1,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(amps,  &kp AMPS,     RT0 RT1,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(ralt,  &kp RIGHT_ALT,RT3 RT4,     DEF NAV SYM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(bspc,  &kp BSPC,     RT2 RT3,     DEF NAV SYM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(fslh,  &kp FSLH,     RB0 RB1,     DEF NAV SYM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
 
 // Parentheses combo uses a mod-morph to emit < and > when shift is held, so we
-// don't need separate gt/lt combos on the same chord.
-ZMK_COMBO(lpar,  &lpar_lt,     RM1 RM2,     DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(rpar,  &rpar_gt,     RM2 RM3,     DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// don't need separate gt/lt combos on the same chord. Kept on HRM positions
+// intentionally; require-prior-idle + balanced HRM prevents misfires.
+ZMK_COMBO(lpar,  &lpar_lt,     RM1 RM2,     DEF NAV SYM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(rpar,  &rpar_gt,     RM2 RM3,     DEF NAV SYM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
-// [ ] on Base/Num — { } on Nav only. Different chord on different layer
+// [ ] on Base/Sym — { } on Nav only. Different chord on different layer
 // gives bracket vs brace from the same finger pattern.
-ZMK_COMBO(lbkt,  &kp LBKT,     RB1 RB2,     DEF     NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(rbkt,  &kp RBKT,     RB2 RB3,     DEF     NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(lbkt,  &kp LBKT,     RB1 RB2,     DEF     SYM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(rbkt,  &kp RBKT,     RB2 RB3,     DEF     SYM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 ZMK_COMBO(lbrc,  &kp LBRC,     RB1 RB2,         NAV    , COMBO_TERM_FAST, COMBO_IDLE_FAST)
 ZMK_COMBO(rbrc,  &kp RBRC,     RB2 RB3,         NAV    , COMBO_TERM_FAST, COMBO_IDLE_FAST)
-
-/* right hand - Vertical combose */
-ZMK_COMBO(caret, &kp CARET,    RT0 RM0,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(plus,  &kp PLUS,     RT1 RM1,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-
-ZMK_COMBO(under, &kp UNDER,    RM0 RB0,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(minus, &kp MINUS,    RM1 RB1,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
