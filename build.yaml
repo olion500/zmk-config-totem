@@ -25,14 +25,19 @@ include:
   # The module README writes this as `xiao_ble//zmk` but Zephyr 4.1 wants the
   # full <board>/<soc>/<variant> form locally.
   # ZMK Studio reaches the central via the dongle's USB-C from here on.
+  # raw_hid_adapter adds the Raw HID interface (usage page 0xFF60) that the
+  # KeyPeek overlay needs for live layer / key-press events.
   - board: xiao_ble/nrf52840/zmk
-    shield: totem_dongle prospector_adapter
+    shield: totem_dongle prospector_adapter raw_hid_adapter
     snippet: studio-rpc-usb-uart
     artifact-name: totem_dongle
 
   # settings_reset firmware — flash this to ALL THREE boards before first pair.
+  # Non-split build, so the KeyPeek notifier would default on and pull in Raw
+  # HID without the adapter shield; keep it off here.
   - board: xiao_ble/nrf52840/zmk
     shield: settings_reset
+    cmake-args: -DCONFIG_ZMK_KEYPEEK_LAYER_NOTIFIER=n
     artifact-name: settings_reset
 
   # Left half — now a peripheral. cmake-args overrides the central=y default
